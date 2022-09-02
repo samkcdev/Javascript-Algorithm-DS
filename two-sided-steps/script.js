@@ -2,6 +2,7 @@ function buildPyramidSteps(n) {
   //debugger;
   //find midpoint
   const middle = Math.floor((2 * n - 1) / 2);
+  let steps = 0;
   //create first level
   for (let level = 0; level < n; level++) {
     let cellValue = "";
@@ -17,6 +18,7 @@ function buildPyramidSteps(n) {
       // if 2 - 0<= 4 && 2+0>= 4 -- " "
 
       if (middle - level <= cell && middle + level >= cell) {
+        steps++;
         cellValue += "#";
       } else {
         cellValue += " ";
@@ -24,6 +26,34 @@ function buildPyramidSteps(n) {
     }
     console.log(cellValue);
   }
+  console.log(steps);
 }
 
-buildPyramidSteps(3);
+//buildPyramidSteps(10);
+
+//same problem using recursion
+
+function buildPyramidStepsRecursin(n, level = 0, cellValue = "") {
+  const middle = Math.floor((2 * n - 1) / 2);
+  if (level === n) {
+    return;
+  }
+
+  if (cellValue.length === 2 * n - 1) {
+    console.log(cellValue);
+    return buildPyramidStepsRecursin(n, level + 1);
+  }
+  let add;
+  if (
+    middle - level <= cellValue.length &&
+    middle + level >= cellValue.length
+  ) {
+    add = "#";
+  } else {
+    add = " ";
+  }
+
+  buildPyramidStepsRecursin(n, level, cellValue + add);
+}
+
+buildPyramidStepsRecursin(10);
